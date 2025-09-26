@@ -25,12 +25,10 @@ jobs:
         api-level: 34
         build-tools: '34.0.0'
 
-    - name: Download Gradle (so gradle command is available)
-      run: |
-        GRADLE_VERSION=8.4.1
-        wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -O gradle.zip
-        unzip gradle.zip -d gradle
-        echo "${PWD}/gradle/gradle-${GRADLE_VERSION}/bin" >> $GITHUB_PATH
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: '8.5'        # <- stable recent version; action will download it
 
     - name: Build debug APK
       run: gradle assembleDebug --no-daemon
